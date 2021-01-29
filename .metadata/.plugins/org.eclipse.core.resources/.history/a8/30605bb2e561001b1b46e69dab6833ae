@@ -1,0 +1,62 @@
+package com.cos.product.web;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cos.product.domain.CommonDto;
+import com.cos.product.domain.Product;
+import com.cos.product.domain.ProductRepository;
+import com.cos.product.domain.SaveReqDto;
+import com.cos.product.domain.UpdateReqDto;
+
+@RestController
+public class Controller {
+	
+	private ProductRepository productRepository;
+	
+	public Controller(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
+	
+	@GetMapping("/product")
+	public CommonDto<List<Product>> findAll(){
+		System.out.println("findAll()");
+		return new CommonDto<>(HttpStatus.OK.value(),productRepository.findAll());
+	}
+	
+	@GetMapping("/product/{id}")
+	public CommonDto<Product> findById(@PathVariable int id){
+		return new CommonDto<>(HttpStatus.OK.value(),productRepository.findById(id));
+	}
+	
+	@CrossOrigin
+	@PostMapping("/product")
+	public CommonDto<?> save(@Valid @RequestBody SaveReqDto dto, BindingResult bindingResult){
+		productRepository.save(dto);
+		return new CommonDto<>(HttpStatus.CREATED.value(),"ok");
+	}
+	
+	@DeleteMapping("/product/{id}")
+	public CommonDto delete(@PathVariable int id) {
+		productRepository.delete(id);
+		return new CommonDto<>(HttpStatus.OK.value());
+	}
+	
+	@PutMapping("/product/{id}")
+	public CommonDto update(@PathVariable int id, @RequestBody UpdateReqDto dto) {
+		productRepository.update(id, dto);
+		return new CommonDto<>(HttpStatus.OK.value());
+	}
+}

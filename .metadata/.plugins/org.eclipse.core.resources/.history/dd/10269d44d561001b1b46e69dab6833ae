@@ -1,0 +1,12 @@
+package com.cos.product.domain;
+
+import javax.validation.constraints.NotBlank;
+
+import lombok.Data;
+
+@Data
+public class UpdateReqDto {
+	private String name;
+	private int price;
+	private int type;
+}

@@ -1,0 +1,10 @@
+package com.cos.product.domain;
+
+import lombok.Data;
+
+@Data
+public class UpdateReqDto {
+	private String name;
+	private int price;
+	private int type;
+}

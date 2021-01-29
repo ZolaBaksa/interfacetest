@@ -1,0 +1,16 @@
+package com.cos.product.domain;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+import lombok.Data;
+
+@Data
+public class SaveReqDto {
+	@NotEmpty
+	private String name;
+	@NotEmpty
+	private int price;
+	@NotEmpty
+	private int type;
+}

@@ -1,0 +1,5 @@
+package com.cos.product.domain;
+
+public class ProductRepository {
+
+}
